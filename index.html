@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>输入表单</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .main-container {
+            display: flex;
+            gap: 20px;
+        }
+        .form-container {
+            background-color: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            flex: 1;
+        }
+        .examples-container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            width: 350px;
+            height: fit-content;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 30px;
+        }
+        h2 {
+            color: #333;
+            margin-top: 0;
+            font-size: 1.2em;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #555;
+        }
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 16px;
+            box-sizing: border-box;
+        }
+        input[type="text"]:focus {
+            border-color: #4a90e2;
+            outline: none;
+            box-shadow: 0 0 5px rgba(74, 144, 226, 0.3);
+        }
+        .btn {
+            background-color: #4a90e2;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            font-size: 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 10px;
+        }
+        .btn:hover {
+            background-color: #3a7bc8;
+        }
+        
+        /* 页签样式 */
+        .tabs {
+            display: flex;
+            border-bottom: 1px solid #ddd;
+            margin-bottom: 20px;
+        }
+        .tab {
+            padding: 10px 20px;
+            cursor: pointer;
+            border: 1px solid transparent;
+            border-bottom: none;
+            border-radius: 4px 4px 0 0;
+            margin-right: 5px;
+            background-color: #f5f5f5;
+        }
+        .tab.active {
+            background-color: white;
+            border-color: #ddd;
+            border-bottom-color: white;
+            margin-bottom: -1px;
+            font-weight: bold;
+            color: #4a90e2;
+        }
+        .tab-content {
+            display: none;
+        }
+        .tab-content.active {
+            display: block;
+        }
+        
+        /* 代码示例样式 */
+        .code-tabs {
+            display: flex;
+            border-bottom: 1px solid #ddd;
+            margin-bottom: 10px;
+        }
+        .code-tab {
+            padding: 8px 15px;
+            cursor: pointer;
+            border: 1px solid transparent;
+            border-bottom: none;
+            border-radius: 4px 4px 0 0;
+            margin-right: 3px;
+            background-color: #f5f5f5;
+            font-size: 14px;
+        }
+        .code-tab.active {
+            background-color: #f8f8f8;
+            border-color: #ddd;
+            border-bottom-color: #f8f8f8;
+            margin-bottom: -1px;
+            font-weight: bold;
+            color: #4a90e2;
+        }
+        .code-content {
+            display: none;
+            background-color: #f8f8f8;
+            padding: 15px;
+            border-radius: 0 0 4px 4px;
+            margin-bottom: 15px;
+            overflow-x: auto;
+        }
+        .code-content.active {
+            display: block;
+        }
+        pre {
+            margin: 0;
+            white-space: pre-wrap;
+            font-family: Consolas, Monaco, 'Andale Mono', monospace;
+            font-size: 14px;
+            line-height: 1.4;
+        }
+        code {
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <h1>加密工具</h1>
+    
+    <div class="main-container">
+        <div class="form-container">
+            <!-- 页签导航 -->
+            <div class="tabs">
+                <div class="tab active" data-tab="tab1">請求加密 Request encryption</div>
+                <div class="tab" data-tab="tab2">回調驗證 Notify Verification</div>
+            </div>
+            
+            <!-- 第一个表单 -->
+            <div id="tab1" class="tab-content active">
+                <form id="inputForm1">
+                    <div class="form-group">
+                        <label for="merchantNo">商户号 (merchantNo):</label>
+                        <input type="text" id="merchantNo" name="merchantNo" placeholder="请输入商户号">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="request">请求 (request):</label>
+                        <input type="text" id="request" name="request" placeholder="请输入请求内容">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="version1">版本 (version):</label>
+                        <input type="text" id="version1" name="version" value="1.0" placeholder="请输入版本号">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="key1">密钥 (key):</label>
+                        <input type="text" id="key1" name="key" placeholder="请输入密钥">
+                    </div>
+                    
+                    <button type="submit" class="btn">提交</button>
+                </form>
+            </div>
+            
+            <!-- 第二个表单 -->
+            <div id="tab2" class="tab-content">
+                <form id="inputForm2">
+                    <div class="form-group">
+                        <label for="content">内容 (content):</label>
+                        <input type="text" id="content" name="content" placeholder="请输入内容">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="notifyTime">通知时间 (notifyTime):</label>
+                        <input type="text" id="notifyTime" name="notifyTime" placeholder="请输入通知时间">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="version2">版本 (version):</label>
+                        <input type="text" id="version2" name="version" value="1.0" placeholder="请输入版本号">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="key2">密钥 (key):</label>
+                        <input type="text" id="key2" name="key" placeholder="请输入密钥">
+                    </div>
+                    
+                    <button type="submit" class="btn">提交</button>
+                </form>
+            </div>
+            
+            <div id="result" style="margin-top: 20px; padding: 15px; background-color: #f8f8f8; border-radius: 4px; display: none;">
+                <h3 style="margin-top: 0; color: #333;">结果</h3>
+                <div>
+                    <p><strong>组合字符串:</strong></p>
+                    <div id="combinedStringDisplay" style="word-break: break-all; background-color: #fff; padding: 10px; border: 1px solid #ddd; border-radius: 4px; margin: 5px 0 15px 0; font-family: monospace; max-height: 100px; overflow-y: auto;"></div>
+                    <p><strong>MD5加密结果 (大写):</strong></p>
+                    <div id="md5Result" style="word-break: break-all; background-color: #fff; padding: 10px; border: 1px solid #ddd; border-radius: 4px; margin: 5px 0; font-family: monospace; font-weight: bold; color: #4a90e2;"></div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 代码示例侧边栏 -->
+        <div class="examples-container">
+            <h2>代码示例</h2>
+            
+            <!-- 请求加密示例 -->
+            <div id="request-examples">
+                <h3 style="font-size: 16px; margin-bottom: 10px;">請求加密示例</h3>
+                
+                <div class="code-tabs">
+                    <div class="code-tab active" data-code="csharp1">C#</div>
+                    <div class="code-tab" data-code="java1">Java</div>
+                    <div class="code-tab" data-code="python1">Python</div>
+                </div>
+                
+                <div id="csharp1" class="code-content active">
+                    <pre><code>using System;
+using System.Security.Cryptography;
+using System.Text;
+
+public class RequestEncryption
+{
+    public static string GenerateSignature(string merchantNo, string request, string version, string key)
+    {
+        // 组合字符串
+        string combined = $"merchantNo:{merchantNo}&request:{request}&version:{version}&key:{key}";
+        
+        // 计算MD5
+        using (MD5 md5 = MD5.Create())
+        {
+            byte[] inputBytes = Encoding.UTF8.GetBytes(combined);
+            byte[] hashBytes = md5.ComputeHash(inputBytes);
+            
+            // 转换为大写十六进制字符串
+            StringBuilder sb = new StringBuilder();
+            for (int i = 0; i < hashBytes.Length; i++)
+            {
+                sb.Append(hashBytes[i].ToString("X2"));
+            }
+            
+            return sb.ToString();
+        }
+    }
+}</code></pre>
+                </div>
+                
+                <div id="java1" class="code-content">
+                    <pre><code>import java.security.MessageDigest;
+import java.nio.charset.StandardCharsets;
+
+public class RequestEncryption {
+    
+    public static String generateSignature(String merchantNo, String request, String version, String key) throws Exception {
+        // 组合字符串
+        String combined = "merchantNo:" + merchantNo + "&request:" + request + "&version:" + version + "&key:" + key;
+        
+        // 计算MD5
+        MessageDigest md = MessageDigest.getInstance("MD5");
+        byte[] hashBytes = md.digest(combined.getBytes(StandardCharsets.UTF_8));
+        
+        // 转换为大写十六进制字符串
+        StringBuilder sb = new StringBuilder();
+        for (byte b : hashBytes) {
+            sb.append(String.format("%02X", b));
+        }
+        
+        return sb.toString();
+    }
+}</code></pre>
+                </div>
+                
+                <div id="python1" class="code-content">
+                    <pre><code>import hashlib
+
+def generate_signature(merchant_no, request, version, key):
+    # 组合字符串
+    combined = f"merchantNo:{merchant_no}&request:{request}&version:{version}&key:{key}"
+    
+    # 计算MD5并转为大写
+    md5_hash = hashlib.md5(combined.encode('utf-8')).hexdigest().upper()
+    
+    return md5_hash
+
+# 使用示例
+# signature = generate_signature("12345", "payment", "1.0", "secretkey")</code></pre>
+                </div>
+            </div>
+            
+            <!-- 回调验证示例 -->
+            <div id="notify-examples" style="margin-top: 20px;">
+                <h3 style="font-size: 16px; margin-bottom: 10px;">回調驗證示例</h3>
+                
+                <div class="code-tabs">
+                    <div class="code-tab active" data-code="csharp2">C#</div>
+                    <div class="code-tab" data-code="java2">Java</div>
+                    <div class="code-tab" data-code="python2">Python</div>
+                </div>
+                
+                <div id="csharp2" class="code-content active">
+                    <pre><code>using System;
+using System.Security.Cryptography;
+using System.Text;
+
+public class NotifyVerification
+{
+    public static string GenerateSignature(string content, string notifyTime, string version, string key)
+    {
+        // 组合字符串
+        string combined = $"content:{content}&notifyTime:{notifyTime}&version:{version}&key:{key}";
+        
+        // 计算MD5
+        using (MD5 md5 = MD5.Create())
+        {
+            byte[] inputBytes = Encoding.UTF8.GetBytes(combined);
+            byte[] hashBytes = md5.ComputeHash(inputBytes);
+            
+            // 转换为大写十六进制字符串
+            StringBuilder sb = new StringBuilder();
+            for (int i = 0; i < hashBytes.Length; i++)
+            {
+                sb.Append(hashBytes[i].ToString("X2"));
+            }
+            
+            return sb.ToString();
+        }
+    }
+}</code></pre>
+                </div>
+                
+                <div id="java2" class="code-content">
+                    <pre><code>import java.security.MessageDigest;
+import java.nio.charset.StandardCharsets;
+
+public class NotifyVerification {
+    
+    public static String generateSignature(String content, String notifyTime, String version, String key) throws Exception {
+        // 组合字符串
+        String combined = "content:" + content + "&notifyTime:" + notifyTime + "&version:" + version + "&key:" + key;
+        
+        // 计算MD5
+        MessageDigest md = MessageDigest.getInstance("MD5");
+        byte[] hashBytes = md.digest(combined.getBytes(StandardCharsets.UTF_8));
+        
+        // 转换为大写十六进制字符串
+        StringBuilder sb = new StringBuilder();
+        for (byte b : hashBytes) {
+            sb.append(String.format("%02X", b));
+        }
+        
+        return sb.toString();
+    }
+}</code></pre>
+                </div>
+                
+                <div id="python2" class="code-content">
+                    <pre><code>import hashlib
+
+def generate_signature(content, notify_time, version, key):
+    # 组合字符串
+    combined = f"content:{content}&notifyTime:{notify_time}&version:{version}&key:{key}"
+    
+    # 计算MD5并转为大写
+    md5_hash = hashlib.md5(combined.encode('utf-8')).hexdigest().upper()
+    
+    return md5_hash
+
+# 使用示例
+# signature = generate_signature("success", "2023-01-01 12:00:00", "1.0", "secretkey")</code></pre>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 引入MD5加密库 -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+    
+    <script>
+        // 页签切换功能
+        document.querySelectorAll('.tab').forEach(tab => {
+            tab.addEventListener('click', function() {
+                // 移除所有tab的active类
+                document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+                // 移除所有tab-content的active类
+                document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+                
+                // 添加当前tab的active类
+                this.classList.add('active');
+                // 显示对应的tab-content
+                const tabId = this.getAttribute('data-tab');
+                document.getElementById(tabId).classList.add('active');
+                
+                // 隐藏结果区域
+                document.getElementById('result').style.display = 'none';
+            });
+        });
+        
+        // 代码示例页签切换功能
+        document.querySelectorAll('.code-tab').forEach(tab => {
+            tab.addEventListener('click', function() {
+                // 获取当前点击的页签所在的代码示例区域
+                const codeExampleContainer = this.closest('.code-tabs').parentElement;
+                
+                // 获取当前点击的页签的data-code属性值
+                const codeId = this.getAttribute('data-code');
+                
+                // 在当前代码示例区域内，移除所有页签的active类
+                codeExampleContainer.querySelectorAll('.code-tab').forEach(t => {
+                    t.classList.remove('active');
+                });
+                
+                // 在当前代码示例区域内，移除所有代码内容的active类
+                codeExampleContainer.querySelectorAll('.code-content').forEach(content => {
+                    content.classList.remove('active');
+                });
+                
+                // 为当前点击的页签添加active类
+                this.classList.add('active');
+                
+                // 显示对应的代码内容
+                document.getElementById(codeId).classList.add('active');
+            });
+        });
+        
+        // 第一个表单提交处理
+        document.getElementById('inputForm1').addEventListener('submit', function(event) {
+            event.preventDefault();
+            
+            const merchantNo = document.getElementById('merchantNo').value;
+            const request = document.getElementById('request').value;
+            const version = document.getElementById('version1').value;
+            const key = document.getElementById('key1').value;
+            
+            // 按照指定规则组合字符串
+            const combinedString = `merchantNo:${merchantNo}&request:${request}&version:${version}&key:${key}`;
+            
+            // 使用CryptoJS进行MD5加密
+            const md5Hash = CryptoJS.MD5(combinedString).toString().toUpperCase();
+            
+            // 在页面上显示结果
+            document.getElementById('combinedStringDisplay').textContent = combinedString;
+            document.getElementById('md5Result').textContent = md5Hash;
+            document.getElementById('result').style.display = 'block';
+            
+            console.log('组合后的字符串:', combinedString);
+            console.log('MD5加密结果 (大写):', md5Hash);
+        });
+        
+        // 第二个表单提交处理
+        document.getElementById('inputForm2').addEventListener('submit', function(event) {
+            event.preventDefault();
+            
+            const content = document.getElementById('content').value;
+            const notifyTime = document.getElementById('notifyTime').value;
+            const version = document.getElementById('version2').value;
+            const key = document.getElementById('key2').value;
+            
+            // 按照指定规则组合字符串
+            const combinedString = `content:${content}&notifyTime:${notifyTime}&version:${version}&key:${key}`;
+            
+            // 使用CryptoJS进行MD5加密
+            const md5Hash = CryptoJS.MD5(combinedString).toString().toUpperCase();
+            
+            // 在页面上显示结果
+            document.getElementById('combinedStringDisplay').textContent = combinedString;
+            document.getElementById('md5Result').textContent = md5Hash;
+            document.getElementById('result').style.display = 'block';
+            
+            console.log('组合后的字符串:', combinedString);
+            console.log('MD5加密结果 (大写):', md5Hash);
+        });
+    </script>
+</body>
+</html> 
